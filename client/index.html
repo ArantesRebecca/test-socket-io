@@ -12,5 +12,10 @@
         send
       </button>
     </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      //global io connectedto the host that serves the page, since no url was added
+      var socket = io();
+    </script>
   </body>
 </html>
