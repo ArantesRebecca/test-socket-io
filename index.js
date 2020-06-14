@@ -11,6 +11,10 @@ app.use(express.static(path.join(__dirname, "./client")));
 io.on("connection", (socket) => {
   console.log("user connected");
 
+  socket.on("message", (msg) => {
+    io.emit("message", msg);
+  });
+
   //disconnection event fired by each socket
   socket.on("disconnect", () => {
     console.log("user disconnected");
