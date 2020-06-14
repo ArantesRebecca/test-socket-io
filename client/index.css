@@ -23,6 +23,7 @@
   border-radius: 2px;
   width: 60%;
   margin: 16px;
+  list-style: none;
 }
 
 .message-input {
@@ -32,4 +33,8 @@
 
 .send-button {
   width: 10%;
+}
+
+.test {
+  color: red;
 }

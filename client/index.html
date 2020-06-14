@@ -28,8 +28,9 @@
           return;
         });
 
-        socket.on("message", function (msg, userId) {
-          $("#messages").append($("<li>").text(msg));
+        socket.on("message", function ({ msg, userId, userColor }) {
+          var $message = $("<li/>").addClass("message").css("color", userColor);
+          $("#messages").append($message.text(msg));
         });
       });
     </script>
