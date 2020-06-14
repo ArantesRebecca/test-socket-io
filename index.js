@@ -14,11 +14,15 @@ app.use(express.static(path.join(__dirname, "./client")));
 io.on("connection", (socket) => {
   const userId = uuidv4();
   const userColor = randomColor();
-
+  var userName = "";
   console.log(`user ${userId} connected`);
 
+  socket.on("nickName", (nickName) => {
+    userName = nickName;
+  });
+
   socket.on("message", (msg) => {
-    io.emit("message", { msg, userId, userColor });
+    io.emit("message", msg, userId, userColor, userName);
   });
 
   //disconnection event fired by each socket

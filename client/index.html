@@ -7,7 +7,7 @@
   <body>
     <section class="messages-wrapper">
       <ul id="messages" class="messages"></ul>
-      <form>
+      <form id="message-form">
         <input id="message" autocomplete="off" class="message-input" />
         <button class="send-button">
           send
@@ -18,9 +18,14 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
       //global io connectedto the host that serves the page, since no url was added
+
       $(function () {
         var socket = io();
-        $("form").submit(function (e) {
+
+        const nickName = window.prompt("como você quer ser chamado?");
+        socket.emit("nickName", nickName);
+
+        $("#message-form").submit(function (e) {
           e.preventDefault();
 
           socket.emit("message", $("#message").val());
@@ -28,9 +33,13 @@
           return;
         });
 
-        socket.on("message", function ({ msg, userId, userColor }) {
-          var $message = $("<li/>").addClass("message").css("color", userColor);
-          $("#messages").append($message.text(msg));
+        socket.on("message", function (msg, userId, userColor, nickName) {
+          var $nickName = $("<p/>").css("color", userColor);
+          var $message = $("<li/>").addClass("message");
+
+          $("#messages")
+            .append($nickName.text(nickName))
+            .append($message.text(msg));
         });
       });
     </script>
