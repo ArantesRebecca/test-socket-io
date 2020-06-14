@@ -9,16 +9,25 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.form {
+.messages-wrapper {
   position: absolute;
   bottom: 0;
+  display: grid;
   width: 100%;
+  grid-template-rows: 2fr 1fr;
+}
+
+.messages {
   padding: 12px;
+  border: solid 1px grey;
+  border-radius: 2px;
+  width: 60%;
+  margin: 16px;
 }
 
 .message-input {
   width: 60%;
-  margin-right: 16px;
+  margin: 16px;
 }
 
 .send-button {

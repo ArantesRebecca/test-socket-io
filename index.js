@@ -2,22 +2,28 @@ var express = require("express");
 var app = express();
 var http = require("http").createServer(app);
 var path = require("path");
+var randomColor = require("randomcolor");
 var io = require("socket.io")(http);
+
+const { v4: uuidv4 } = require("uuid");
 
 //route handler
 app.use(express.static(path.join(__dirname, "./client")));
 
 //listen for incoming sockets
 io.on("connection", (socket) => {
-  console.log("user connected");
+  const userId = uuidv4();
+  const userColor = randomColor();
+
+  console.log(`user ${userId} connected`);
 
   socket.on("message", (msg) => {
-    io.emit("message", msg);
+    io.emit("message", { msg, userId, userColor });
   });
 
   //disconnection event fired by each socket
   socket.on("disconnect", () => {
-    console.log("user disconnected");
+    console.log(`user ${userId} disconnected`);
   });
 });
 
